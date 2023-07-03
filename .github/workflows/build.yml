@@ -143,6 +143,7 @@ jobs:
           echo -e "CONFIG_HAVE_KPROBES=y" >> arch/${{ env.arch }}/configs/${{ env.DEFCONFIG_NAME }}
           echo -e "CONFIG_KPROBE_EVENTS=y" >> arch/${{ env.arch }}/configs/${{ env.DEFCONFIG_NAME }}
           wget https://github.com/wu17481748/lxc-docker/releases/download/lxc/lxc.patch
+          sed -i 's/android-kernel\///g' lxc.patch
           patch -p0 < lxc.patch
           wget https://github.com/wu17481748/lxc-docker/releases/download/lxc-docker-config/LXC-DOCKER-OPEN-CONFIG.sh
           chmod 777 LXC-DOCKER-OPEN-CONFIG.sh
