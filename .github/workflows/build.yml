@@ -55,7 +55,6 @@ jobs:
     steps:
       - name: "⭐ Install prerequisites"
         run: |
-          ls -a $GITHUB_WORKSPACE
           sudo apt-get update
           sudo apt-get install -y build-essential bc curl git zip ftp gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp zstd wget libfl-dev python2 python3 libarchive-tools
 
@@ -71,6 +70,7 @@ jobs:
 
       - name: "🌟 Clone kernel source => (${{ env.KERNEL_REPO }})"
         run: |
+          git clone --depth=1 https://github.com/wstjf/Android-Kernel-Builder myrepo
           git clone --recursive --depth=1 -j $(nproc) --branch $KERNEL_BRANCH $KERNEL_REPO $KERNEL_NAME
 
           echo "🤔 Clone kernel source => ($KERNEL_REPO)"
@@ -151,7 +151,7 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
           arch: ${{ steps.generate-args.outputs.ARCH }}
         run: |
-          cp -R $GITHUB_WORKSPACE/qaq drivers/qaq
+          cp -R $GITHUB_WORKSPACE/myrepo//qaq drivers/qaq
           echo "obj-y += qaq/" >> drivers/Makefile
           echo "PATH Variable: $PATH"
           make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
