@@ -152,6 +152,7 @@ jobs:
         run: |
           ln -sf $GITHUB_WORKSPACE/qaq drivers/qaq
           echo "obj-y += qaq/" >> drivers/Makefile
+          ls drivers/qaq
           echo "PATH Variable: $PATH"
           make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
